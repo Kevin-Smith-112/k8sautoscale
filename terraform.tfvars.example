@@ -1,0 +1,25 @@
+# Copy to terraform.tfvars and edit. terraform.tfvars is git-ignored.
+
+region       = "ca-central-1"
+cluster_name = "k8sautoscale"
+
+# Your home IP (curl -s https://checkip.amazonaws.com) as a /32. Only these
+# CIDRs can reach the public Kubernetes API load balancer.
+admin_cidrs = ["203.0.113.10/32"]
+
+# Nodes are in private subnets; outbound traffic goes through a NAT gateway.
+# true = one NAT gateway per AZ (survives an AZ outage, ~3x the NAT cost)
+nat_gateway_per_az = false
+
+# Optional: existing EC2 key pair for SSH tunnelled over SSM Session Manager
+# ssh_key_name = "my-key"
+
+control_plane_instance_type = "t3.small"
+worker_instance_type        = "t3.small"
+
+control_plane_count = 3
+worker_min_size     = 2
+worker_max_size     = 4
+
+# CloudWatch alarm notifications (confirm the subscription email from AWS)
+# alarm_email = "you@example.com"
